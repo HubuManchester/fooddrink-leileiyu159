@@ -1,0 +1,313 @@
+============================================================
+  食光营养助手 (NutriBite) — 录屏演示讲解说明（中文版）
+============================================================
+
+本文件为录屏演示提供逐条讲解建议。请按顺序演示并讲解每个评分点，
+确保评分老师能清楚看到每项功能。
+
+------------------------------------------------------------
+一、开场与项目介绍（约1分钟）
+------------------------------------------------------------
+
+1. 介绍应用主题
+   - "本项目是一个基于 .NET MAUI 的跨平台移动应用，名为'食光营养助手'
+     (NutriBite)，主题是 Food and Drink，即食品与饮品。"
+   - "应用可以帮助用户记录食品和饮品，查看营养信息，并通过设备硬件增强体验。"
+
+2. 展示项目在 GitHub 上的仓库
+   - 打开 GitHub 仓库页面，展示 README.md 文件内容。
+   - "项目托管在 GitHub，这是仓库首页和 README 文件。"
+   - 展示提交历史："项目有多次有意义的提交记录，包括初始提交、数据库层、
+     编辑删除功能、硬件功能扩展、中文本地化和分享功能等。"
+   - 具体说明每类提交的内容和目的。
+
+------------------------------------------------------------
+二、首页与 UI 设计展示（约1.5分钟）
+------------------------------------------------------------
+
+3. 展示首页 UI
+   - 启动应用，展示底部三个选项卡导航栏：Foods 食品、Hardware 硬件、
+     Settings 设置。
+   - "应用采用底部 Tab 导航，使用暖色餐饮风格配色，包括奶油色背景、
+     番茄红和罗勒绿主题色。"
+   - 指出顶部横幅："应用名称 NutriBite 食光营养助手，横幅展示了 Nutrition、
+     Photos、Voice 三个核心标签。"
+   - 说明卡片设计："每个食品卡片左侧有红色装饰条，展示了名称、热量标签、
+     描述、宏量营养素和分类信息。"
+
+4. 展示营养统计面板
+   - 指出列表上方的统计面板："这个面板实时显示当前列表的总记录数、
+     总热量、总蛋白质和总碳水摄入量。"
+   - "点击 Share 按钮可以通过系统分享功能导出营养报告。"
+
+5. 展示搜索功能
+   - 在搜索框中输入 "breakfast"，展示实时筛选效果。
+   - "搜索支持按名称、分类、描述和标签进行实时过滤。"
+   - 再输入 "饮品" 或 "红豆"，展示中英文搜索兼容。
+   - 清空搜索框，展示完整列表恢复。
+
+6. 展示下拉刷新
+   - 下拉列表触发 RefreshView，说明当前数据来源
+     （本地 SQLite 数据库 / mockapi.io 远程 API）。
+
+7. 展示 CollectionView 空状态
+   - 输入不存在的关键词，展示 "No matching food or drink records." 空视图。
+
+8. 展示滑动操作（SwipeView）
+   - 在某个食品卡片上向左滑动，展示 Edit（橙色）和 Delete（红色）操作按钮。
+   - "列表支持向左滑动呼出编辑和删除快捷操作。"
+
+------------------------------------------------------------
+三、详情页演示（约1.5分钟）
+------------------------------------------------------------
+
+9. 点击某个食品的 "Details" 按钮进入详情页
+   - 展示顶部渐变色头部：名称、分类、热量。
+   - 展示营养概览区域：宏量营养素、描述、过敏提示。
+
+10. 朗读摘要（Text-to-Speech）
+    - 点击 "Read summary" 按钮："应用会调用系统文字转语音引擎，
+      朗读当前食品的营养摘要。"
+    - 稍等片刻后点击 "Stop reading"："可以随时停止朗读。"
+    - 补充说明："离开详情页时会自动停止朗读，避免后台继续播放。"
+
+11. 震动提醒（Vibration + Haptic Feedback）
+    - 点击 "Vibration reminder" 按钮。
+    - "点击后会触发设备震动和触觉反馈，模拟用餐提醒场景。"
+    - 展示弹出的提示对话框。
+
+12. 编辑记录
+    - 点击 "Edit record" 按钮，进入编辑页面。
+    - 说明编辑页面预填了当前记录的所有信息。
+    - 修改某个字段（如名称），点击 "Update record"。
+    - "更新会同步到本地 SQLite 数据库和 mockapi.io 远程 API。"
+
+13. 删除记录
+    - 返回详情页，点击 "Delete record"。
+    - "删除前会弹出确认对话框，防止误操作。"
+    - 确认删除后返回首页，展示列表中该记录已消失。
+
+14. 分享功能
+    - 进入另一个食品的详情页，点击 "Share this item"。
+    - "系统分享面板会弹出，可以将营养信息分享到其他应用。"
+
+------------------------------------------------------------
+四、添加记录与验证演示（约1.5分钟）
+------------------------------------------------------------
+
+15. 从首页点击 "Add" 按钮进入添加页
+    - "添加页包含基础信息区和营养数据区两个表单区域。"
+    - 指出必填字段。
+
+16. 演示表单验证 — 留空提交
+    - 不填写任何内容，直接点击 "Save record"。
+    - "表单验证会检查必填项：名称不能为空，分类必须选择，描述不能为空。"
+    - 展示红色错误提示面板出现，同时触发震动反馈。
+    - 屏幕阅读器会播报错误信息（SemanticScreenReader）。
+
+17. 演示数字验证
+    - 填写名称、选择分类、填写描述。
+    - 在热量字段填入 "-5" 或 "abc"。
+    - "营养数值必须是非负整数，输入非法值会提示具体字段名。"
+
+18. 正确添加记录
+    - 填入合法数据：
+      名称: Oat Milk Latte
+      分类: Drink
+      描述: A smooth oat milk latte with a light cinnamon sprinkle.
+      热量: 145
+      蛋白质: 4
+      碳水: 18
+      脂肪: 6
+      过敏提示: Contains oats. Dairy-free.
+    - 点击 "Save record"。
+    - "保存成功会显示提示，同时触发触觉反馈和屏幕阅读器播报。"
+    - "数据会同时保存到本地 SQLite 数据库和 mockapi.io API。"
+    - 返回首页展示新记录出现在列表中。
+
+------------------------------------------------------------
+五、硬件功能演示（约2.5分钟）
+------------------------------------------------------------
+
+19. 切换到 Hardware 硬件选项卡
+    - "硬件页面集中展示了六种以上的移动设备硬件能力。"
+
+20. 拍照（Camera）
+    - 点击 "Photo" 按钮。
+    - "应用调用 MediaPicker API 打开系统相机。"
+    - 拍摄一张照片（模拟器可以用虚拟场景或预置图片）。
+    - 照片在预览区显示。
+    - "如果相机权限被拒绝，会显示友好的错误提示。"
+
+21. 定位与地址解析（Location + Geocoding）
+    - 点击 "Locate" 按钮。
+    - "应用使用 Geolocation API 获取设备经纬度坐标。"
+    - 展示坐标信息。
+    - "然后通过 Geocoding API 进行反向地理编码，获取国家、城市、
+      区域等地址信息。"
+    - 如果是模拟器默认坐标，会显示 "United States / California / Mountain View"。
+    - 说明兜底逻辑："如果模拟器不返回地址，应用会根据坐标范围推断城市。"
+
+22. 文字转语音（Text-to-Speech）
+    - 点击 "Read help" 按钮。
+    - "应用会朗读 NutriBite 的帮助介绍文本。"
+    - 点击 "Stop speech" 停止。
+    - 补充："SpeechService 会优先选择中文 TTS 语音包，让中文朗读更自然。"
+
+23. 触觉反馈（Vibration + Haptic Feedback）
+    - 点击 "Haptic feedback" 按钮。
+    - "同时触发 Vibration 震动和 HapticFeedback 触觉反馈。"
+    - 指出底部计数变化："计数器从 N 变为 N+1，方便录屏验证功能确实被触发了。"
+    - 状态栏显示触发确认信息。
+
+24. 加速度计（Accelerometer）
+    - 点击 "Start" 按钮启动加速度计监测。
+    - "加速度计显示设备在 X、Y、Z 三个轴上的实时加速度数值。"
+    - "当检测到大加速度变化时（如摇晃设备），会显示 SHAKE detected!。"
+    - 再次点击停止监测。
+    - "页面离开时（OnDisappearing）会自动停止加速度计，避免资源浪费。"
+
+25. 网络连接状态（Connectivity）
+    - 点击 "Refresh" 按钮。
+    - 展示当前网络连接类型（WiFi、蜂窝网络、无网络等）。
+    - "Connectivity API 可以检测设备当前的网络接入状态。"
+
+26. 设备信息（Device Info）
+    - 点击 "Load" 按钮。
+    - 展示设备平台、型号、制造商、操作系统版本和惯用类型。
+    - "DeviceInfo API 可以读取设备的基本硬件信息。"
+
+------------------------------------------------------------
+六、设置页与无障碍演示（约1.5分钟）
+------------------------------------------------------------
+
+27. 切换到 Settings 设置选项卡
+    - "设置页提供主题切换和大字体模式两个无障碍相关功能。"
+
+28. 深色/浅色主题切换
+    - 当前使用系统主题。
+    - 选择 "Dark theme"，展示整个应用切换为深色主题。
+    - "所有页面都通过 AppThemeBinding 支持深色/浅色主题自动适配。"
+    - 选择 "Light theme" 切回浅色。
+    - 选择 "Use system theme" 恢复跟随系统。
+
+29. 大字体模式（Large Text Mode）
+    - 打开 Large text mode 开关。
+    - 设置页上的文字立即放大（标题变为 "Large text preview: enlarged"）。
+    - 说明："AccessibilityService 会遍历当前页面所有 Label、Button、Entry、
+      Editor、Picker、SearchBar 控件，放大字体。"
+    - 切换到首页，展示首页文字也已放大。
+    - 切换到硬件页，同样已放大。
+    - "字体缩放设置在切换页面后依然生效，保持会话一致性。"
+    - 关闭大字体开关，所有文字恢复正常。
+
+30. 屏幕阅读器播报（SemanticScreenReader）
+    - 说明："每个操作完成后都会调用 SemanticScreenReader.Announce() 播报结果，
+      确保视障用户也能了解操作状态。"
+
+31. 语义属性展示
+    - 展示代码中的 SemanticProperties.Description、HeadingLevel、Hint 等。
+    - "所有交互控件都有语义属性，帮助屏幕阅读器准确描述界面。"
+
+------------------------------------------------------------
+七、代码结构展示（约1.5分钟）
+------------------------------------------------------------
+
+32. 展示项目文件结构
+    - Models/FoodItem.cs："数据模型，包含所有食品/饮品属性和计算属性，
+      使用 JsonPropertyName 支持 JSON 序列化。"
+    - Services/：
+      * FoodCatalogService.cs："食品数据核心服务，优先使用 mockapi.io API，
+        同时集成本地 SQLite 持久化存储，网络不可用时自动降级到本地数据。"
+      * DatabaseService.cs："基于 sqlite-net-pcl 的本地数据库服务，
+        提供 CRUD 操作，数据库文件存储在应用私有目录。"
+      * SpeechService.cs："文字转语音服务，支持英文和中文 TTS，
+        自动选择对应语言语音包，支持取消朗读。"
+      * AccessibilityService.cs："无障碍字体缩放服务，使用
+        ConditionalWeakTable 存储原始字体大小，避免内存泄漏。"
+      * ShareService.cs："系统分享服务，支持分享单个食品和完整营养报告。"
+      * LocalizationService.cs："本地化服务，支持中英文双语资源。"
+      * MockApiConfig.cs："mockapi.io 端点配置。"
+    - Pages：
+      * MainPage："首页，食品列表、搜索、统计面板、滑动操作。"
+      * FoodDetailPage："详情页，编辑、删除、朗读、震动、分享。"
+      * AddItemPage："添加页，完整表单验证。"
+      * EditItemPage："编辑页，预填数据、更新验证。"
+      * HardwarePage："硬件演示页，6 种以上硬件 API。"
+      * SettingsPage："设置页，主题切换、大字体模式。"
+    - AppShell.xaml："Shell 导航结构，底部 TabBar + 路由注册。"
+
+33. 展示 AndroidManifest.xml 权限配置
+    - "Android 清单文件声明了 CAMERA、ACCESS_FINE_LOCATION、
+      ACCESS_COARSE_LOCATION、VIBRATE、INTERNET 等权限。"
+    - "相机和定位功能标记为 required=false，在不支持的设备上优雅降级。"
+
+34. 展示全局样式
+    - Colors.xaml："定义了应用的颜色资源。"
+    - Styles.xaml："定义了全局控件样式，统一了 Button、Entry、Label 等
+      控件的外观，并通过 AppThemeBinding 支持深色/浅色主题。"
+
+------------------------------------------------------------
+八、部署演示（约1分钟）
+------------------------------------------------------------
+
+35. 展示构建结果
+    - 运行 Android 构建命令：
+      dotnet build FoodDrinkApp.csproj -f net9.0-android
+    - 展示 "已成功生成。0 个警告 0 个错误"。
+    - （如果有 Windows 环境）运行 Windows 构建命令：
+      dotnet build FoodDrinkApp.csproj -f net9.0-windows10.0.19041.0
+    - 说明项目通过 Directory.Build.props 配置了自定义构建输出路径。
+
+36. 展示应用运行
+    - 在 Android 模拟器上运行应用，展示应用实际运行效果。
+    - "应用支持 Android 和 Windows 双平台部署。"
+
+------------------------------------------------------------
+九、GitHub 使用展示（约0.5分钟）
+------------------------------------------------------------
+
+37. 展示 GitHub 提交历史
+    - 打开 GitHub 仓库的 Commits 页面。
+    - 逐条说明提交：
+      Commit 1: "Initial commit" — 项目初始提交，包含基础结构。
+      Commit 2: "add deadline" — 作业截止日期配置。
+      Commit 3: "Add SQLite database for local food item persistence" —
+        引入 sqlite-net-pcl，实现本地数据持久化。
+      Commit 4: "Add edit and delete functionality for food items" —
+        新增编辑页面、滑动删除、详情页编辑/删除按钮。
+      Commit 5: "Add accelerometer, connectivity, and device info hardware features" —
+        扩展硬件演示，增加加速度计、网络检测、设备信息。
+      Commit 6: "Add Chinese localization and bilingual app support" —
+        添加中文本地化资源、双语标签、中文食物数据。
+      Commit 7: "Add share/export functionality and nutrition dashboard" —
+        添加分享服务、首页营养统计面板。
+      Commit 8: "Configure mockapi.io endpoint for remote data sync" —
+        配置远程 API 端点。
+      Commit 9: "Fix duplicate EmbeddedResource build error and async warning" —
+        修复构建问题。
+    - 说明："每次提交都有清晰的目的和描述，展示了持续开发的完整过程。"
+
+------------------------------------------------------------
+十、总结（约0.5分钟）
+------------------------------------------------------------
+
+38. 总结评分点覆盖
+    - "本项目在以下评分维度均有充分实现："
+    - UI/UX Design and Accessibility (30%)：多页面 XAML、暖色主题、深色模式、
+      大字体、语义属性、屏幕阅读器播报。
+    - Use of Mobile Hardware (20%)：Camera、Geolocation、Geocoding、
+      Text-to-Speech、Vibration、Haptic Feedback、Accelerometer、
+      Connectivity、Device Info，超过要求的 4 种硬件。
+    - Functionality (20%)：列表浏览、搜索、添加、编辑、删除、详情、
+      分享、统计面板、设置、硬件演示。
+    - Validation and Error Handling (10%)：必填项检查、数字验证、
+      权限异常处理、网络降级、确认对话框防误操作。
+    - Code Quality (10%)：Model-Service-Page 分层架构、服务复用、
+      命名清晰、无冗余代码。
+    - Deployment (5%)：Android + Windows 双平台，构建验证通过。
+    - GitHub Usage (5%)：9 次有意义的提交，每步有清晰描述。
+
+============================================================
+  祝录屏顺利，取得高分！
+============================================================

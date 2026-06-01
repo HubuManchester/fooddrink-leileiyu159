@@ -1,0 +1,328 @@
+============================================================
+  NutriBite (食光营养助手) — Screencast Narration Guide (English)
+============================================================
+
+This file provides item-by-item narration suggestions for the screencast
+demonstration. Follow this order and explain each scoring point clearly
+so the examiner can see every feature.
+
+------------------------------------------------------------
+1.  Opening & Project Introduction (~1 min)
+------------------------------------------------------------
+
+1. Introduce the app theme
+   - "This is a .NET MAUI cross-platform mobile app called NutriBite
+     (食光营养助手), themed around Food and Drink."
+   - "It helps users record food and beverages, view nutrition info,
+     and leverages device hardware for a better experience."
+
+2. Show the GitHub repository
+   - Open the GitHub repo page and show the README.md content.
+   - "The project is hosted on GitHub. Here is the repository homepage
+     and README file."
+   - Show the commit history: "The project has multiple meaningful commits
+     covering initial setup, database layer, edit/delete features, hardware
+     expansion, Chinese localization, and share functionality."
+   - Briefly describe what each group of commits represents.
+
+------------------------------------------------------------
+2.  Home Page & UI Design (~1.5 min)
+------------------------------------------------------------
+
+3. Show the home page UI
+   - Launch the app and show the three-tab bottom navigation: Foods,
+     Hardware, Settings.
+   - "The app uses bottom Tab navigation with a warm food-themed colour
+     palette — cream backgrounds, tomato red, and basil green."
+   - Point out the header banner: "The banner shows the app name
+     NutriBite 食光营养助手 with three core tags: Nutrition, Photos, Voice."
+   - Describe card design: "Each food card has a red accent strip on the
+     left, showing name, calorie badge, description, macros, and category."
+
+4. Show the nutrition stats dashboard
+   - Point to the stats panel above the list: "This panel shows total
+     records, total calories, total protein, and total carbs in real time."
+   - "The Share button exports a nutrition report via the system share sheet."
+
+5. Demonstrate search
+   - Type "breakfast" in the search bar to show real-time filtering.
+   - "Search filters by name, category, description, and tags in real time."
+   - Try "饮品" or "红豆" to show bilingual search compatibility.
+   - Clear the search box to restore the full list.
+
+6. Demonstrate pull-to-refresh
+   - Pull down the list to trigger RefreshView.
+   - "Pull-to-refresh reloads the list. The screen reader announces
+     whether data came from the local database or mockapi.io."
+
+7. Show empty state
+   - Search for a non-existent keyword to show the empty view:
+     "No matching food or drink records."
+
+8. Demonstrate swipe actions (SwipeView)
+   - Swipe left on a food card to reveal Edit (orange) and Delete (red).
+   - "The list supports swipe-to-reveal edit and delete shortcuts."
+
+------------------------------------------------------------
+3.  Detail Page Demo (~1.5 min)
+------------------------------------------------------------
+
+9. Tap "Details" on a food item to open the detail page
+   - Show the gradient header: name, category, calories.
+   - Show the nutrition overview: macros, description, allergy note.
+
+10. Read summary (Text-to-Speech)
+    - Tap "Read summary": "The app invokes the system TTS engine to read
+      the nutrition summary aloud."
+    - After a moment, tap "Stop reading": "Speech can be stopped at any time."
+    - "Speech also stops automatically when leaving the page, via
+      OnDisappearing, preventing audio from playing in the background."
+
+11. Vibration reminder
+    - Tap "Vibration reminder".
+    - "This triggers both Vibration and HapticFeedback, simulating a
+      meal reminder scenario."
+    - Show the confirmation dialog.
+
+12. Edit record
+    - Tap "Edit record" to navigate to the edit page.
+    - Note that all fields are pre-filled with the current values.
+    - Modify a field (e.g., the name) and tap "Update record".
+    - "Updates sync to both the local SQLite database and the mockapi.io API."
+
+13. Delete record
+    - Return to the detail page and tap "Delete record".
+    - "A confirmation dialog prevents accidental deletion."
+    - Confirm deletion and return to the home page — the item is gone.
+
+14. Share functionality
+    - Go to another item's detail page and tap "Share this item".
+    - "The system share panel opens, allowing nutrition info to be shared
+      to other apps."
+
+------------------------------------------------------------
+4.  Add Record & Validation Demo (~1.5 min)
+------------------------------------------------------------
+
+15. From the home page, tap "Add" to open the add page
+    - "The add page has two form sections: Basic Information and Nutrition Data."
+    - Point out the required fields.
+
+16. Demonstrate form validation — empty submission
+    - Leave all fields blank and tap "Save record".
+    - "Form validation checks: name required, category required,
+      description required."
+    - Show the red error panel appearing, with vibration feedback.
+    - Screen reader announces the error message (SemanticScreenReader).
+
+17. Demonstrate number validation
+    - Fill in name, choose a category, fill in description.
+    - Enter "-5" or "abc" in the calories field.
+    - "Nutrition values must be non-negative integers. Invalid input
+      produces a field-specific error message."
+
+18. Correctly add a record
+    - Enter valid data:
+      Name: Oat Milk Latte
+      Category: Drink
+      Description: A smooth oat milk latte with a light cinnamon sprinkle.
+      Calories: 145, Protein: 4, Carbs: 18, Fat: 6
+      Allergy: Contains oats. Dairy-free.
+    - Tap "Save record".
+    - "On success, a confirmation appears with haptic feedback and
+      screen reader announcement."
+    - "Data is saved to both local SQLite and mockapi.io API."
+    - Return to the home page — the new item is in the list.
+
+------------------------------------------------------------
+5.  Hardware Demo (~2.5 min)
+------------------------------------------------------------
+
+19. Switch to the Hardware tab
+    - "The hardware page demonstrates 6+ mobile device hardware capabilities."
+
+20. Camera (MediaPicker)
+    - Tap "Photo".
+    - "The app calls MediaPicker.CapturePhotoAsync() to open the camera."
+    - Take a photo (use a virtual scene or preset image in the emulator).
+    - The photo appears in the preview area.
+    - "If camera permission is denied, a friendly error message is shown."
+
+21. Location & Geocoding
+    - Tap "Locate".
+    - "The app uses Geolocation.Default.GetLocationAsync() to obtain
+      latitude and longitude."
+    - Show the coordinate display.
+    - "Then Geocoding.Default.GetPlacemarksAsync() performs reverse
+      geocoding to get country, city, and region."
+    - On emulator defaults: shows "United States / California / Mountain View".
+    - Explain the fallback: "If the emulator returns no address, the app
+      infers the city from coordinate ranges."
+
+22. Text-to-Speech
+    - Tap "Read help".
+    - "The app reads the NutriBite help introduction aloud."
+    - Tap "Stop speech" to stop.
+    - "SpeechService auto-selects the matching TTS locale —
+      Chinese for Chinese text, English for English text."
+
+23. Haptic Feedback (Vibration + HapticFeedback)
+    - Tap "Haptic feedback".
+    - "Triggers both Vibration.Default.Vibrate() and
+      HapticFeedback.Default.Perform() simultaneously."
+    - Point out the counter increment: "The counter changes from N to N+1,
+      providing screen-recordable proof that the feature was triggered."
+    - The status label confirms the action.
+
+24. Accelerometer
+    - Tap "Start" to begin accelerometer monitoring.
+    - "The accelerometer shows real-time X, Y, Z axis acceleration values."
+    - "When large acceleration is detected (shaking the device),
+      it shows SHAKE detected!"
+    - Tap again to stop monitoring.
+    - "Accelerometer stops automatically in OnDisappearing to save resources."
+
+25. Network Connectivity
+    - Tap "Refresh".
+    - Shows the current network type (WiFi, Cellular, None, etc.).
+    - "The Connectivity API checks the device's current network access state."
+
+26. Device Info
+    - Tap "Load".
+    - Shows platform, model, manufacturer, OS version, and idiom.
+    - "DeviceInfo API reads basic device hardware information."
+
+------------------------------------------------------------
+6.  Settings & Accessibility Demo (~1.5 min)
+------------------------------------------------------------
+
+27. Switch to the Settings tab
+    - "The settings page provides theme switching and large text mode."
+
+28. Theme switching (Dark/Light)
+    - Currently following system theme.
+    - Select "Dark theme" — the entire app switches to dark mode.
+    - "All pages use AppThemeBinding for automatic dark/light adaptation."
+    - Select "Light theme" to switch back.
+    - Select "Use system theme" to restore system following.
+
+29. Large Text Mode
+    - Toggle "Large text mode" on.
+    - The settings page text immediately enlarges (title changes to
+      "Large text preview: enlarged").
+    - "AccessibilityService traverses all Label, Button, Entry, Editor,
+      Picker, and SearchBar controls on the current page and scales their fonts."
+    - Switch to the Foods tab — text is also enlarged there.
+    - Switch to the Hardware tab — same.
+    - "Font scaling persists across page navigation for session consistency."
+    - Toggle large text off — all text returns to normal.
+
+30. Screen Reader Announcements
+    - "Every action completion calls SemanticScreenReader.Announce()
+      to keep visually impaired users informed of operation results."
+
+31. Semantic Properties
+    - Show code references to SemanticProperties.Description, HeadingLevel, Hint.
+    - "All interactive controls carry semantic properties to help
+      screen readers accurately describe the interface."
+
+------------------------------------------------------------
+7.  Code Structure Walkthrough (~1.5 min)
+------------------------------------------------------------
+
+32. Show the project file structure
+    - Models/FoodItem.cs: "The data model with all food/drink properties,
+      computed display properties, and JsonPropertyName attributes."
+    - Services/:
+      * FoodCatalogService.cs: "Core food data service — prioritises
+        mockapi.io REST API, integrates local SQLite persistence,
+        gracefully degrades when offline."
+      * DatabaseService.cs: "sqlite-net-pcl based local database with
+        CRUD operations. Database file stored in app private directory."
+      * SpeechService.cs: "TTS service supporting English and Chinese,
+        auto-selecting the matching locale. Supports cancellation."
+      * AccessibilityService.cs: "Font scaling using ConditionalWeakTable
+        to store original sizes, preventing memory leaks."
+      * ShareService.cs: "System share service for individual items
+        and full nutrition reports."
+      * LocalizationService.cs: "Bilingual resource management."
+      * MockApiConfig.cs: "mockapi.io endpoint configuration."
+    - Pages:
+      * MainPage: "Home page — list, search, stats dashboard, swipe actions."
+      * FoodDetailPage: "Detail page — edit, delete, TTS, vibration, share."
+      * AddItemPage: "Add page with full form validation."
+      * EditItemPage: "Edit page with pre-filled data and update validation."
+      * HardwarePage: "Hardware demo — 6+ hardware APIs."
+      * SettingsPage: "Settings — theme switching, large text."
+    - AppShell.xaml: "Shell navigation with bottom TabBar + route registration."
+
+33. Show AndroidManifest.xml permissions
+    - "The Android manifest declares CAMERA, ACCESS_FINE_LOCATION,
+      ACCESS_COARSE_LOCATION, VIBRATE, INTERNET, and ACCESS_NETWORK_STATE."
+    - "Camera and location are marked required=false for graceful
+      degradation on unsupported devices."
+
+34. Show global styles
+    - Colors.xaml: "Defines the app's colour resources."
+    - Styles.xaml: "Global control styles for Button, Entry, Label, etc.,
+      all using AppThemeBinding for dark/light theme support."
+
+------------------------------------------------------------
+8.  Deployment Demo (~1 min)
+------------------------------------------------------------
+
+35. Show build results
+    - Run: dotnet build FoodDrinkApp.csproj -f net9.0-android
+    - Show "Build succeeded. 0 Warning(s) 0 Error(s)".
+    - (If Windows available) Run:
+      dotnet build FoodDrinkApp.csproj -f net9.0-windows10.0.19041.0
+    - "The project uses Directory.Build.props to redirect build output
+      to C:\MauiBuild, avoiding path issues with Chinese characters."
+
+36. Show the app running
+    - Run the app on the Android emulator.
+    - "The app supports both Android and Windows platforms."
+
+------------------------------------------------------------
+9.  GitHub Usage Demo (~0.5 min)
+------------------------------------------------------------
+
+37. Show GitHub commit history
+    - Open the Commits page on GitHub.
+    - Walk through each commit:
+      Commit 1: Initial commit — project scaffolding.
+      Commit 2: add deadline — assignment deadline configuration.
+      Commit 3: Add SQLite database for local food item persistence.
+      Commit 4: Add edit and delete functionality for food items.
+      Commit 5: Add accelerometer, connectivity, and device info hardware.
+      Commit 6: Add Chinese localization and bilingual app support.
+      Commit 7: Add share/export functionality and nutrition dashboard.
+      Commit 8: Configure mockapi.io endpoint for remote data sync.
+      Commit 9: Fix duplicate EmbeddedResource build error and async warning.
+    - "Each commit has a clear purpose and description, demonstrating
+      a complete, continuous development process."
+
+------------------------------------------------------------
+10. Summary (~0.5 min)
+------------------------------------------------------------
+
+38. Summarise scoring coverage
+    - "This project fully addresses each scoring dimension:"
+    - UI/UX Design and Accessibility (30%): Multi-page XAML, warm food theme,
+      dark mode, large text, semantic properties, screen reader announcements.
+    - Use of Mobile Hardware (20%): Camera, Geolocation, Geocoding,
+      Text-to-Speech, Vibration, Haptic Feedback, Accelerometer,
+      Connectivity, Device Info — well beyond the 4 required.
+    - Functionality (20%): Browse, search, add, edit, delete, details,
+      share, stats dashboard, settings, hardware demos.
+    - Validation and Error Handling (10%): Required field checks, number
+      validation, permission error handling, network fallback,
+      delete confirmation dialogs.
+    - Code Quality (10%): Model-Service-Page layered architecture,
+      reusable services, clear naming, no dead code.
+    - Deployment (5%): Android + Windows dual-platform, build verified clean.
+    - GitHub Usage (5%): 9 meaningful commits with clear descriptions.
+
+============================================================
+  Good luck with the screencast — aim for top marks!
+============================================================
