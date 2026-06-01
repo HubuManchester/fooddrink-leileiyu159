@@ -16,7 +16,7 @@ public partial class HardwarePage : ContentPage
     {
         base.OnAppearing();
         AccessibilityService.ApplyFontScale(this);
-        _ = UpdateConnectivityAsync();
+        UpdateConnectivity();
         LoadDeviceInfo();
     }
 
@@ -247,12 +247,12 @@ public partial class HardwarePage : ContentPage
         AccelerometerLabel.Text = "Accelerometer: monitoring stopped.";
     }
 
-    private async void OnConnectivityClicked(object? sender, EventArgs e)
+    private void OnConnectivityClicked(object? sender, EventArgs e)
     {
-        await UpdateConnectivityAsync();
+        UpdateConnectivity();
     }
 
-    private async Task UpdateConnectivityAsync()
+    private void UpdateConnectivity()
     {
         try
         {
