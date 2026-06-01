@@ -4,7 +4,7 @@
              xmlns:models="clr-namespace:FoodDrinkApp.Models"
              x:Class="FoodDrinkApp.MainPage"
              Title="NutriBite">
-    <Grid RowDefinitions="Auto,*">
+    <Grid RowDefinitions="Auto,Auto,*">
         <Grid.Background>
             <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
                 <GradientStop Color="{AppThemeBinding Light=#FFF1DA, Dark=#130F0C}" Offset="0.0" />
@@ -87,7 +87,68 @@
             </Border>
         </Grid>
 
-        <RefreshView Grid.Row="1" x:Name="FoodRefreshView" Refreshing="OnRefreshing">
+        <Border Grid.Row="1"
+                StrokeThickness="1"
+                Stroke="{AppThemeBinding Light=#F0D6B8, Dark=#3E3023}"
+                BackgroundColor="{AppThemeBinding Light=#FFFFFA, Dark=#1A1712}"
+                Padding="14"
+                Margin="16,8,16,0">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="8" />
+            </Border.StrokeShape>
+            <Grid ColumnDefinitions="*,*,*,*,Auto" ColumnSpacing="10">
+                <VerticalStackLayout Spacing="2">
+                    <Label x:Name="StatsItemCountLabel"
+                           Text="0 items"
+                           FontSize="15"
+                           FontAttributes="Bold"
+                           TextColor="{AppThemeBinding Light=#3A2518, Dark=#FFF2DF}" />
+                    <Label Text="Records"
+                           FontSize="11"
+                           TextColor="{AppThemeBinding Light=#8B6D55, Dark=#D8C4AC}" />
+                </VerticalStackLayout>
+                <VerticalStackLayout Grid.Column="1" Spacing="2">
+                    <Label x:Name="StatsCaloriesLabel"
+                           Text="0 kcal"
+                           FontSize="15"
+                           FontAttributes="Bold"
+                           TextColor="{AppThemeBinding Light=#D9472B, Dark=#FF9C7B}" />
+                    <Label Text="Calories"
+                           FontSize="11"
+                           TextColor="{AppThemeBinding Light=#8B6D55, Dark=#D8C4AC}" />
+                </VerticalStackLayout>
+                <VerticalStackLayout Grid.Column="2" Spacing="2">
+                    <Label x:Name="StatsProteinLabel"
+                           Text="0g"
+                           FontSize="15"
+                           FontAttributes="Bold"
+                           TextColor="{AppThemeBinding Light=#2F7A4F, Dark=#8CE6A1}" />
+                    <Label Text="Protein"
+                           FontSize="11"
+                           TextColor="{AppThemeBinding Light=#8B6D55, Dark=#D8C4AC}" />
+                </VerticalStackLayout>
+                <VerticalStackLayout Grid.Column="3" Spacing="2">
+                    <Label x:Name="StatsCarbsLabel"
+                           Text="0g"
+                           FontSize="15"
+                           FontAttributes="Bold"
+                           TextColor="{AppThemeBinding Light=#F29B38, Dark=#FFB15D}" />
+                    <Label Text="Carbs"
+                           FontSize="11"
+                           TextColor="{AppThemeBinding Light=#8B6D55, Dark=#D8C4AC}" />
+                </VerticalStackLayout>
+                <Button Grid.Column="4"
+                        Text="Share"
+                        FontSize="12"
+                        Padding="10,6"
+                        BackgroundColor="#2F7A4F"
+                        TextColor="#FFFFFF"
+                        Clicked="OnShareReportClicked"
+                        SemanticProperties.Hint="Share a nutrition report" />
+            </Grid>
+        </Border>
+
+        <RefreshView Grid.Row="2" x:Name="FoodRefreshView" Refreshing="OnRefreshing">
             <CollectionView x:Name="FoodCollection"
                             SelectionMode="None"
                             EmptyView="No matching food or drink records."

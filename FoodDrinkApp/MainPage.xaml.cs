@@ -18,7 +18,30 @@ public partial class MainPage : ContentPage
 
     private async Task LoadFoodItemsAsync(string? query = null)
     {
-        FoodCollection.ItemsSource = await FoodCatalogService.SearchAsync(query);
+        var items = await FoodCatalogService.SearchAsync(query);
+        FoodCollection.ItemsSource = items;
+        UpdateStats(items);
+    }
+
+    private void UpdateStats(IReadOnlyList<Models.FoodItem> items)
+    {
+        StatsItemCountLabel.Text = $"{items.Count} items";
+        StatsCaloriesLabel.Text = $"{items.Sum(i => i.Calories)} kcal";
+        StatsProteinLabel.Text = $"{items.Sum(i => i.Protein)}g";
+        StatsCarbsLabel.Text = $"{items.Sum(i => i.Carbs)}g";
+    }
+
+    private async void OnShareReportClicked(object? sender, EventArgs e)
+    {
+        try
+        {
+            var items = await FoodCatalogService.SearchAsync(null);
+            await ShareService.ShareNutritionReportAsync(items);
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlert("Share failed", ex.Message, "OK");
+        }
     }
 
     private async void OnAddClicked(object? sender, EventArgs e)

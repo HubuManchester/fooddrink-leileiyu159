@@ -88,6 +88,14 @@
                         SemanticProperties.Hint="Stop the current speech" />
             </Grid>
 
+            <Button Text="Share this item"
+                    BackgroundColor="{AppThemeBinding Light=#FFFFFA, Dark=#1A1712}"
+                    BorderColor="{AppThemeBinding Light=#F0D6B8, Dark=#3E3023}"
+                    BorderWidth="1"
+                    TextColor="{AppThemeBinding Light=#2F7A4F, Dark=#8CE6A1}"
+                    Clicked="OnShareClicked"
+                    SemanticProperties.Hint="Share nutrition details via system share" />
+
             <Button Text="Vibration reminder"
                     BackgroundColor="#2F7A4F"
                     TextColor="#FFFFFF"

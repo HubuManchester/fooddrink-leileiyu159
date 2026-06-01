@@ -113,6 +113,21 @@ public partial class FoodDetailPage : ContentPage
         }
     }
 
+    private async void OnShareClicked(object? sender, EventArgs e)
+    {
+        if (currentItem is null)
+            return;
+
+        try
+        {
+            await ShareService.ShareFoodItemAsync(currentItem);
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlert("Share failed", ex.Message, "OK");
+        }
+    }
+
     private async void OnVibrateClicked(object? sender, EventArgs e)
     {
         try
