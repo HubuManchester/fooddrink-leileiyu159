@@ -118,6 +118,79 @@
                     Clicked="OnFeedbackClicked"
                     SemanticProperties.Hint="Trigger vibration and haptic feedback" />
 
+            <!-- Accelerometer -->
+            <Border StrokeThickness="1"
+                    Stroke="{AppThemeBinding Light=#F0D6B8, Dark=#3E3023}"
+                    BackgroundColor="{AppThemeBinding Light=#FFFFFA, Dark=#1A1712}"
+                    Padding="16">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="8" />
+                </Border.StrokeShape>
+                <Grid RowDefinitions="Auto,Auto" ColumnDefinitions="*,Auto" RowSpacing="10" ColumnSpacing="12">
+                    <VerticalStackLayout Spacing="3">
+                        <Label Text="Accelerometer" FontSize="17" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#D9472B, Dark=#FF9C7B}" />
+                        <Label Text="Detect device movement and shake gestures." FontSize="13" TextColor="{AppThemeBinding Light=#8B6D55, Dark=#D8C4AC}" />
+                    </VerticalStackLayout>
+                    <Button Grid.Column="1"
+                            Text="Start"
+                            BackgroundColor="#D9472B"
+                            TextColor="#FFFFFF"
+                            Clicked="OnAccelerometerClicked"
+                            SemanticProperties.Hint="Start or stop accelerometer monitoring" />
+                    <Label x:Name="AccelerometerLabel"
+                           Grid.Row="1"
+                           Grid.ColumnSpan="2"
+                           Text="Accelerometer: not monitoring."
+                           FontSize="14"
+                           TextColor="{AppThemeBinding Light=#6E5A47, Dark=#D8C4AC}" />
+                </Grid>
+            </Border>
+
+            <!-- Connectivity and Battery -->
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
+                <Border StrokeThickness="1"
+                        Stroke="{AppThemeBinding Light=#F0D6B8, Dark=#3E3023}"
+                        BackgroundColor="{AppThemeBinding Light=#FFFFFA, Dark=#1A1712}"
+                        Padding="16">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="8" />
+                    </Border.StrokeShape>
+                    <VerticalStackLayout Spacing="8">
+                        <Label Text="Connectivity" FontSize="17" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#2F7A4F, Dark=#8CE6A1}" />
+                        <Label x:Name="ConnectivityLabel"
+                               Text="Checking..."
+                               FontSize="13"
+                               TextColor="{AppThemeBinding Light=#6E5A47, Dark=#D8C4AC}" />
+                        <Button Text="Refresh"
+                                BackgroundColor="#2F7A4F"
+                                TextColor="#FFFFFF"
+                                Clicked="OnConnectivityClicked"
+                                SemanticProperties.Hint="Check network connectivity status" />
+                    </VerticalStackLayout>
+                </Border>
+                <Border Grid.Column="1"
+                        StrokeThickness="1"
+                        Stroke="{AppThemeBinding Light=#F0D6B8, Dark=#3E3023}"
+                        BackgroundColor="{AppThemeBinding Light=#FFFFFA, Dark=#1A1712}"
+                        Padding="16">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="8" />
+                    </Border.StrokeShape>
+                    <VerticalStackLayout Spacing="8">
+                        <Label Text="Device info" FontSize="17" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#2F7A4F, Dark=#8CE6A1}" />
+                        <Label x:Name="DeviceInfoLabel"
+                               Text="Loading device details..."
+                               FontSize="13"
+                               TextColor="{AppThemeBinding Light=#6E5A47, Dark=#D8C4AC}" />
+                        <Button Text="Load"
+                                BackgroundColor="#2F7A4F"
+                                TextColor="#FFFFFF"
+                                Clicked="OnDeviceInfoClicked"
+                                SemanticProperties.Hint="Show device model and platform information" />
+                    </VerticalStackLayout>
+                </Border>
+            </Grid>
+
             <Border StrokeThickness="0"
                     BackgroundColor="{AppThemeBinding Light=#FFF0C9, Dark=#312316}"
                     Padding="14">
