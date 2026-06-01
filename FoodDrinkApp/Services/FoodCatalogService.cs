@@ -68,32 +68,34 @@ public static class FoodCatalogService
         }
     ];
 
-    private static List<FoodItem> cachedItems = new(LocalFallbackItems);
+    private static List<FoodItem> cachedItems = [];
+    private static bool isInitialised;
 
     public static bool LastLoadUsedMockApi { get; private set; }
+    public static string DataSourceDescription => LastLoadUsedMockApi ? "mockapi.io (remote)" : "local database";
 
     public static async Task<IReadOnlyList<FoodItem>> SearchAsync(string? query)
     {
-        var items = await GetAllAsync();
+        await EnsureInitialisedAsync();
 
-        if (string.IsNullOrWhiteSpace(query))
-        {
-            return items.OrderBy(item => item.Name).ToList();
-        }
+        var normalised = query?.Trim();
+        var items = string.IsNullOrWhiteSpace(normalised)
+            ? cachedItems
+            : cachedItems
+                .Where(item =>
+                    item.Name.Contains(normalised, StringComparison.OrdinalIgnoreCase) ||
+                    item.Category.Contains(normalised, StringComparison.OrdinalIgnoreCase) ||
+                    item.Description.Contains(normalised, StringComparison.OrdinalIgnoreCase) ||
+                    item.Tags.Contains(normalised, StringComparison.OrdinalIgnoreCase))
+                .ToList();
 
-        var normalised = query.Trim();
-        return items
-            .Where(item =>
-                item.Name.Contains(normalised, StringComparison.OrdinalIgnoreCase) ||
-                item.Category.Contains(normalised, StringComparison.OrdinalIgnoreCase) ||
-                item.Description.Contains(normalised, StringComparison.OrdinalIgnoreCase) ||
-                item.Tags.Contains(normalised, StringComparison.OrdinalIgnoreCase))
-            .OrderBy(item => item.Name)
-            .ToList();
+        return items.OrderBy(item => item.Name).ToList();
     }
 
     public static async Task<FoodItem?> GetByIdAsync(string id)
     {
+        await EnsureInitialisedAsync();
+
         if (MockApiConfig.IsConfigured)
         {
             try
@@ -103,13 +105,10 @@ public static class FoodCatalogService
                     JsonOptions);
 
                 if (item is not null)
-                {
                     return item;
-                }
             }
             catch
             {
-                // Fall back to the last loaded cache below.
             }
         }
 
@@ -118,47 +117,124 @@ public static class FoodCatalogService
 
     public static async Task<FoodItem> AddAsync(FoodItem item)
     {
+        await EnsureInitialisedAsync();
+
         if (MockApiConfig.IsConfigured)
         {
-            var response = await HttpClient.PostAsJsonAsync(MockApiConfig.EndpointUrl, item, JsonOptions);
-            response.EnsureSuccessStatusCode();
-
-            var created = await response.Content.ReadFromJsonAsync<FoodItem>(JsonOptions);
-            if (created is not null)
+            try
             {
-                cachedItems.Add(created);
-                return created;
+                var response = await HttpClient.PostAsJsonAsync(MockApiConfig.EndpointUrl, item, JsonOptions);
+                response.EnsureSuccessStatusCode();
+
+                var created = await response.Content.ReadFromJsonAsync<FoodItem>(JsonOptions);
+                if (created is not null)
+                {
+                    await DatabaseService.SaveAsync(FoodItemEntity.FromModel(created));
+                    cachedItems.Add(created);
+                    return created;
+                }
+            }
+            catch
+            {
             }
         }
 
+        await DatabaseService.SaveAsync(FoodItemEntity.FromModel(item));
         cachedItems.Add(item);
         return item;
     }
 
-    private static async Task<IReadOnlyList<FoodItem>> GetAllAsync()
+    public static async Task<bool> UpdateAsync(FoodItem item)
     {
-        if (!MockApiConfig.IsConfigured)
+        await EnsureInitialisedAsync();
+
+        if (MockApiConfig.IsConfigured)
         {
-            LastLoadUsedMockApi = false;
-            return cachedItems;
+            try
+            {
+                var response = await HttpClient.PutAsJsonAsync(
+                    $"{MockApiConfig.EndpointUrl.TrimEnd('/')}/{Uri.EscapeDataString(item.Id)}",
+                    item, JsonOptions);
+                response.EnsureSuccessStatusCode();
+            }
+            catch
+            {
+            }
         }
+
+        await DatabaseService.SaveAsync(FoodItemEntity.FromModel(item));
+        var index = cachedItems.FindIndex(i => i.Id == item.Id);
+        if (index >= 0)
+            cachedItems[index] = item;
+
+        return true;
+    }
+
+    public static async Task<bool> DeleteAsync(string id)
+    {
+        await EnsureInitialisedAsync();
+
+        if (MockApiConfig.IsConfigured)
+        {
+            try
+            {
+                await HttpClient.DeleteAsync(
+                    $"{MockApiConfig.EndpointUrl.TrimEnd('/')}/{Uri.EscapeDataString(id)}");
+            }
+            catch
+            {
+            }
+        }
+
+        await DatabaseService.DeleteAsync(id);
+        cachedItems.RemoveAll(i => i.Id == id);
+        return true;
+    }
+
+    private static async Task EnsureInitialisedAsync()
+    {
+        if (isInitialised)
+            return;
 
         try
         {
-            var items = await HttpClient.GetFromJsonAsync<List<FoodItem>>(MockApiConfig.EndpointUrl, JsonOptions);
-            if (items is { Count: > 0 })
+            var dbItems = await DatabaseService.GetAllAsync();
+            if (dbItems.Count > 0)
             {
-                cachedItems = items;
-                LastLoadUsedMockApi = true;
-                return cachedItems;
+                cachedItems = dbItems.Select(e => e.ToModel()).ToList();
+                isInitialised = true;
+                return;
             }
         }
         catch
         {
-            // Keep the app usable during demos even if the network is unavailable.
         }
 
+        if (MockApiConfig.IsConfigured)
+        {
+            try
+            {
+                var items = await HttpClient.GetFromJsonAsync<List<FoodItem>>(MockApiConfig.EndpointUrl, JsonOptions);
+                if (items is { Count: > 0 })
+                {
+                    cachedItems = items;
+                    foreach (var item in items)
+                        await DatabaseService.SaveAsync(FoodItemEntity.FromModel(item));
+                    LastLoadUsedMockApi = true;
+                    isInitialised = true;
+                    return;
+                }
+            }
+            catch
+            {
+            }
+        }
+
+        foreach (var item in LocalFallbackItems)
+            await DatabaseService.SaveAsync(FoodItemEntity.FromModel(item));
+
+        cachedItems = new List<FoodItem>(LocalFallbackItems);
         LastLoadUsedMockApi = false;
-        return cachedItems;
+        isInitialised = true;
     }
 }
