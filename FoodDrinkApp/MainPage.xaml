@@ -94,6 +94,19 @@
                             Margin="16,0,16,18">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="models:FoodItem">
+                        <SwipeView>
+                            <SwipeView.RightItems>
+                                <SwipeItems>
+                                    <SwipeItem Text="Delete"
+                                               BackgroundColor="#B43820"
+                                               Invoked="OnSwipeDeleteInvoked"
+                                               CommandParameter="{Binding Id}" />
+                                    <SwipeItem Text="Edit"
+                                               BackgroundColor="#F29B38"
+                                               Invoked="OnSwipeEditInvoked"
+                                               CommandParameter="{Binding Id}" />
+                                </SwipeItems>
+                            </SwipeView.RightItems>
                         <Border StrokeThickness="1"
                                 Stroke="{AppThemeBinding Light=#F0D6B8, Dark=#3E3023}"
                                 BackgroundColor="{AppThemeBinding Light=#FFFFFA, Dark=#1A1712}"
@@ -153,6 +166,7 @@
                                 </Grid>
                             </Grid>
                         </Border>
+                        </SwipeView>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>

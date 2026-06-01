@@ -79,6 +79,40 @@ public partial class FoodDetailPage : ContentPage
         SemanticScreenReader.Announce("Reading stopped.");
     }
 
+    private async void OnEditClicked(object? sender, EventArgs e)
+    {
+        if (currentItem is null)
+            return;
+
+        await Shell.Current.GoToAsync($"{nameof(EditItemPage)}?id={Uri.EscapeDataString(currentItem.Id)}");
+    }
+
+    private async void OnDeleteClicked(object? sender, EventArgs e)
+    {
+        if (currentItem is null)
+            return;
+
+        var confirm = await DisplayAlert(
+            "Confirm delete",
+            $"Are you sure you want to delete \"{currentItem.Name}\"? This cannot be undone.",
+            "Delete", "Cancel");
+
+        if (!confirm)
+            return;
+
+        try
+        {
+            await FoodCatalogService.DeleteAsync(currentItem.Id);
+            HapticFeedback.Default.Perform(HapticFeedbackType.LongPress);
+            SemanticScreenReader.Announce($"Deleted {currentItem.Name}.");
+            await Shell.Current.GoToAsync("..");
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlert("Delete failed", ex.Message, "OK");
+        }
+    }
+
     private async void OnVibrateClicked(object? sender, EventArgs e)
     {
         try

@@ -48,7 +48,32 @@ public partial class MainPage : ContentPage
     {
         await LoadFoodItemsAsync(SearchFoodBar.Text);
         FoodRefreshView.IsRefreshing = false;
-        var source = FoodCatalogService.LastLoadUsedMockApi ? "mockapi.io" : "local fallback data";
-        SemanticScreenReader.Announce($"Food and drink list refreshed. Current source: {source}.");
+        SemanticScreenReader.Announce($"Food and drink list refreshed. Current source: {FoodCatalogService.DataSourceDescription}.");
+    }
+
+    private async void OnSwipeEditInvoked(object? sender, EventArgs e)
+    {
+        if (sender is SwipeItem swipeItem && swipeItem.CommandParameter is string id)
+            await Shell.Current.GoToAsync($"{nameof(EditItemPage)}?id={Uri.EscapeDataString(id)}");
+    }
+
+    private async void OnSwipeDeleteInvoked(object? sender, EventArgs e)
+    {
+        if (sender is SwipeItem swipeItem && swipeItem.CommandParameter is string id)
+        {
+            var item = await FoodCatalogService.GetByIdAsync(id);
+            var confirm = await DisplayAlert(
+                "Confirm delete",
+                $"Delete \"{item?.Name ?? "this item"}\"? This cannot be undone.",
+                "Delete", "Cancel");
+
+            if (confirm)
+            {
+                await FoodCatalogService.DeleteAsync(id);
+                HapticFeedback.Default.Perform(HapticFeedbackType.LongPress);
+                await LoadFoodItemsAsync(SearchFoodBar.Text);
+                SemanticScreenReader.Announce("Item deleted.");
+            }
+        }
     }
 }
