@@ -4,7 +4,7 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:FoodDrinkApp"
-    Title="NutriBite"
+    Title="NutriBite 食光营养助手"
     FlyoutBehavior="Disabled"
     Shell.BackgroundColor="{AppThemeBinding Light=#FFF4E3, Dark=#120E0B}"
     Shell.ForegroundColor="{AppThemeBinding Light=#3A2518, Dark=#FFF2DF}"
@@ -17,15 +17,15 @@
 
     <TabBar>
         <ShellContent
-            Title="Foods"
+            Title="Foods 食品"
             ContentTemplate="{DataTemplate local:MainPage}"
             Route="MainPage" />
         <ShellContent
-            Title="Hardware"
+            Title="Hardware 硬件"
             ContentTemplate="{DataTemplate local:HardwarePage}"
             Route="HardwarePage" />
         <ShellContent
-            Title="Settings"
+            Title="Settings 设置"
             ContentTemplate="{DataTemplate local:SettingsPage}"
             Route="SettingsPage" />
     </TabBar>

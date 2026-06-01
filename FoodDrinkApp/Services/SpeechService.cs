@@ -25,14 +25,31 @@ public static class SpeechService
         }
     }
 
-    public static Task SpeakChineseAsync(string text) => SpeakAsync(text);
+    public static async Task SpeakChineseAsync(string text)
+    {
+        Stop();
+
+        currentSpeech = new CancellationTokenSource();
+        var options = new SpeechOptions
+        {
+            Volume = 0.9f,
+            Pitch = 1.08f,
+            Locale = await FindChineseLocaleAsync()
+        };
+
+        try
+        {
+            await TextToSpeech.Default.SpeakAsync(text, options, currentSpeech.Token);
+        }
+        catch (OperationCanceledException)
+        {
+        }
+    }
 
     public static void Stop()
     {
         if (currentSpeech is null)
-        {
             return;
-        }
 
         currentSpeech.Cancel();
         currentSpeech.Dispose();
@@ -43,5 +60,13 @@ public static class SpeechService
     {
         var locales = await TextToSpeech.Default.GetLocalesAsync();
         return locales.FirstOrDefault(locale => locale.Language.StartsWith("en", StringComparison.OrdinalIgnoreCase));
+    }
+
+    private static async Task<Locale?> FindChineseLocaleAsync()
+    {
+        var locales = await TextToSpeech.Default.GetLocalesAsync();
+        return locales.FirstOrDefault(locale =>
+            locale.Language.StartsWith("zh", StringComparison.OrdinalIgnoreCase) ||
+            locale.Language.StartsWith("cmn", StringComparison.OrdinalIgnoreCase));
     }
 }

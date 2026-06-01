@@ -65,6 +65,30 @@ public static class FoodCatalogService
             Fat = 16,
             AllergyNote = "Contains gluten.",
             Tags = "vegetarian dinner pasta"
+        },
+        new()
+        {
+            Name = "红豆薏米粥",
+            Category = "Breakfast",
+            Description = "Red bean and coix seed congee, lightly sweetened with rock sugar. A traditional Chinese breakfast.",
+            Calories = 280,
+            Protein = 12,
+            Carbs = 52,
+            Fat = 2,
+            AllergyNote = "No common allergens recorded.",
+            Tags = "Chinese breakfast congee healthy"
+        },
+        new()
+        {
+            Name = "番茄鸡蛋面",
+            Category = "Lunch",
+            Description = "Hand-pulled noodles with scrambled eggs and fresh tomato broth. Garnished with spring onion.",
+            Calories = 450,
+            Protein = 18,
+            Carbs = 62,
+            Fat = 14,
+            AllergyNote = "Contains egg and gluten.",
+            Tags = "Chinese noodles lunch comfort food"
         }
     ];
 

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AppName" xml:space="preserve">
+    <value>食光营养助手</value>
+  </data>
+  <data name="AppSubtitle" xml:space="preserve">
+    <value>NutriBite - 食品与饮品营养追踪</value>
+  </data>
+  <data name="TabFoods" xml:space="preserve">
+    <value>食品</value>
+  </data>
+  <data name="TabHardware" xml:space="preserve">
+    <value>硬件</value>
+  </data>
+  <data name="TabSettings" xml:space="preserve">
+    <value>设置</value>
+  </data>
+  <data name="AddRecord" xml:space="preserve">
+    <value>添加食品或饮品</value>
+  </data>
+  <data name="EditRecord" xml:space="preserve">
+    <value>编辑食品或饮品</value>
+  </data>
+  <data name="NutritionDetails" xml:space="preserve">
+    <value>营养详情</value>
+  </data>
+  <data name="SaveRecord" xml:space="preserve">
+    <value>保存记录</value>
+  </data>
+  <data name="UpdateRecord" xml:space="preserve">
+    <value>更新记录</value>
+  </data>
+  <data name="DeleteRecord" xml:space="preserve">
+    <value>删除记录</value>
+  </data>
+  <data name="SearchPlaceholder" xml:space="preserve">
+    <value>搜索食品、饮品、分类或标签</value>
+  </data>
+  <data name="RecordSaved" xml:space="preserve">
+    <value>食品记录已保存。</value>
+  </data>
+  <data name="RecordUpdated" xml:space="preserve">
+    <value>食品记录已更新。</value>
+  </data>
+  <data name="RecordDeleted" xml:space="preserve">
+    <value>记录已删除。</value>
+  </data>
+</root>

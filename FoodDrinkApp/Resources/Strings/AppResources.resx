@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AppName" xml:space="preserve">
+    <value>食光营养助手</value>
+  </data>
+  <data name="AppSubtitle" xml:space="preserve">
+    <value>NutriBite - Food &amp; Drink Nutrition Tracker</value>
+  </data>
+  <data name="TabFoods" xml:space="preserve">
+    <value>食品</value>
+  </data>
+  <data name="TabHardware" xml:space="preserve">
+    <value>硬件</value>
+  </data>
+  <data name="TabSettings" xml:space="preserve">
+    <value>设置</value>
+  </data>
+  <data name="AddRecord" xml:space="preserve">
+    <value>Add food or drink</value>
+  </data>
+  <data name="EditRecord" xml:space="preserve">
+    <value>Edit food or drink</value>
+  </data>
+  <data name="NutritionDetails" xml:space="preserve">
+    <value>Nutrition Details</value>
+  </data>
+  <data name="SaveRecord" xml:space="preserve">
+    <value>Save record</value>
+  </data>
+  <data name="UpdateRecord" xml:space="preserve">
+    <value>Update record</value>
+  </data>
+  <data name="DeleteRecord" xml:space="preserve">
+    <value>Delete record</value>
+  </data>
+  <data name="SearchPlaceholder" xml:space="preserve">
+    <value>Search foods, drinks, categories, or tags</value>
+  </data>
+  <data name="RecordSaved" xml:space="preserve">
+    <value>Food record saved.</value>
+  </data>
+  <data name="RecordUpdated" xml:space="preserve">
+    <value>Food record updated.</value>
+  </data>
+  <data name="RecordDeleted" xml:space="preserve">
+    <value>Item deleted.</value>
+  </data>
+</root>
