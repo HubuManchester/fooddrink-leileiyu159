@@ -152,6 +152,12 @@ public partial class HardwarePage : ContentPage
     {
         try
         {
+            if (!await SpeechService.IsAvailableAsync())
+            {
+                SetStatus("TTS unavailable: install voice data in device settings.");
+                return;
+            }
+
             const string helpText = "NutriBite records foods and drinks, shows nutrition details, and uses camera, location, speech, and haptic feedback to make meal tracking more practical.";
             await SpeechService.SpeakAsync(helpText);
             SetStatus("Reading help content aloud.");
