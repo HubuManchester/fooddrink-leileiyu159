@@ -65,6 +65,17 @@ public partial class FoodDetailPage : ContentPage
 
         try
         {
+            if (!await SpeechService.IsAvailableAsync())
+            {
+                await DisplayAlert(
+                    "TTS not available",
+                    "No text-to-speech voice found on this device.\n\n" +
+                    "On Android, go to:\nSettings → System → Languages & input → Text-to-speech output → " +
+                    "install voice data (e.g. Google TTS or manufacturer engine).",
+                    "OK");
+                return;
+            }
+
             await SpeechService.SpeakAsync(currentItem.AccessibleSummary);
         }
         catch (Exception ex)
